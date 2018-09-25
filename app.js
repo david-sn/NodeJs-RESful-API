@@ -1,26 +1,26 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 
 const app = express();
 
 
-
-
 const productsRoutes = require('./routes/products');
 const orderRoute = require('./routes/orders');
-app.use('/products', productsRoutes);
-app.use('/orders', orderRoute);
+
 
 //loggiong
 app.use(morgan('dev'));
 
 
-//bodyParser
+//bodyParser must be before router to hoc on it
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use('/products', productsRoutes);
+app.use('/orders', orderRoute);
 
 
 //HANDLE 404
