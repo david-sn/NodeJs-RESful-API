@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
 
 
 const app = express();
@@ -9,6 +10,8 @@ const app = express();
 
 const productsRoutes = require('./routes/products');
 const orderRoute = require('./routes/orders');
+
+mongoose.connect('mongodb://localhost:27017/nodejs');
 
 
 //loggiong
@@ -23,8 +26,8 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
-    if (res.method==='OPTIONS') {
-        res.header('Access-Control-Allow-Methods','PUST, POST, GET, DELETE');
+    if (res.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUST, POST, GET, DELETE');
         return res.status(200).json({});
     }
     next();
