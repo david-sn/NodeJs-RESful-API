@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 
 
 router.get('/', (req, res) => {
-    Prod.find().exec()
+    Prod.find()
+        .select('_id name price')
+        .exec()
         .then(docs => {
             res.status(200).json({
                 message: " Get Request / produt",
